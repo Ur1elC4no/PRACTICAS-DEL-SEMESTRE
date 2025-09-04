@@ -15,11 +15,11 @@ public class CajeroView {
     }
     public String solicitarNumeroCuenta(){
         System.out.println("Ingresa tu número de cuenta: ");
-        return scanner.nextLine();
+        return scanner.nextLine().trim();
     }
     public String solicitarPin(){
         System.out.println("Ingresa tu PIN: ");
-        return scanner.nextLine();
+        return scanner.nextLine().trim();
     }
     public void mostrarMenuPrincipal(String titular){
         System.out.println("======================================");
@@ -30,8 +30,7 @@ public class CajeroView {
         System.out.println("3.- Depositar");
         System.out.println("4.- Transferir");
         System.out.println("5.- Cambiar PIN");
-        //definir las opciones faltantes
-        System.out.println("9.- Salir");
+        System.out.println("6w.- Salir");
     }
     public int leerOpcion(){
         try{
@@ -46,7 +45,7 @@ public class CajeroView {
         System.out.println("======================================");
     }
     public double solicitarCantidad(String operacion){
-        System.out.println("Ingresa la antidad a " + operacion + ": ");
+        System.out.println("Ingresa la cantidad a " + operacion + ": ");
         try {
             return Double.parseDouble(scanner.nextLine());
         }catch (NumberFormatException e){
@@ -61,7 +60,7 @@ public class CajeroView {
 
     public String solicitarCuentaDestino(){
         System.out.print("Cuenta destino: ");
-        return scanner.nextLine();
+        return scanner.nextLine().trim();
     }
 
     public String solicitarPinActual(){

@@ -8,7 +8,7 @@ public class CajeroModel {
     private Cuenta cuentaActual;
 
     public CajeroModel() {
-        cuentas = new HashMap<>();
+        cuentas = new HashMap<String, Cuenta>();
         inicializarCuentas();
     }
 

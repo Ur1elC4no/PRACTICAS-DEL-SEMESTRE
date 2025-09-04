@@ -15,3 +15,16 @@ public class CajeroAutomatico {
         controller.iniciarSistema();
     }
 }
+
+
+//TAREA
+//- Personalizar mensajes de error y de exito
+//- Metodo para salir, cerrar el scanner
+
+
+
+// Para subir el repositorio
+// git add .
+// git commit /am "Mensaje"
+// git pull
+//git push

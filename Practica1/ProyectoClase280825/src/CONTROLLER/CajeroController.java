@@ -41,6 +41,24 @@ public class CajeroController {
                 case 2:
                     realizarRetiro();
                     break;
+                case 3:
+                    realizarDeposito();
+                    break;
+                case 4:
+                    realizarTransferencia();
+                    break;
+                case 5:
+                    cambiarPin();
+                    break;
+                case 9:
+                    view.mostrarMensaje("Saliendo del sistema...");
+                    view.cerrarScanner();
+                    sessionActive = false;
+                    sistemaActivo = false;
+                    break;
+                default:
+                    view.mostrarMensaje("Opción inválida");
+                    break;
             }
         }
     }
@@ -70,6 +88,46 @@ public class CajeroController {
             view.mostrarMensaje("Depósito exitoso de "+cantidad);
         }else{
             view.mostrarMensaje("Error al procesar el deposito");
+        }
+    }
+    private void realizarTransferencia(){
+        String cuentaDestino = view.solicitarCuentaDestino();
+        double cantidad = view.solicitarCantidad("Transferir");
+
+        if (cantidad <= 0) {
+            view.mostrarMensaje("Cantidad inválida");
+            return;
+        }
+
+        if (model.getCuentaActual() != null && cuentaDestino.equals(model.getCuentaActual().getNumeroCuenta())) {
+            view.mostrarMensaje("No puedes transferir a la misma cuenta");
+            return;
+        }
+
+        if (!model.cuentaExistente(cuentaDestino)) {
+            view.mostrarMensaje("La cuenta destino no existe");
+            return;
+        }
+
+        if (model.consultarSaldo() < cantidad) {
+            view.mostrarMensaje("Fondos insuficientes");
+            return;
+        }
+
+        if (model.realizarTransferencia(cuentaDestino, cantidad)) {
+            view.mostrarMensaje("Transferencia exitosa de " + cantidad + " a la cuenta " + cuentaDestino);
+        } else {
+            view.mostrarMensaje("No fue posible realizar la transferencia");
+        }
+    }
+
+    private void cambiarPin(){
+        String pinActual = view.solicitarPinActual();
+        String nuevoPin = view.solicitarNuevoPin();
+        if (model.cambiarNip(pinActual, nuevoPin)){
+            view.mostrarMensaje("PIN actualizado correctamente");
+        }else{
+            view.mostrarMensaje("No fue posible cambiar el PIN");
         }
     }
 }
