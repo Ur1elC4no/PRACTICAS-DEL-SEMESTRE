@@ -1,9 +1,9 @@
 package VIEW;
 
 import CONTROLLER.CajeroController;
-import CONTROLLER.CajeroController;
 import MODEL.CajeroModel;
-import MODEL.CajeroModel;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CajeroAutomatico {
@@ -12,6 +12,9 @@ public class CajeroAutomatico {
         CajeroModel model = new CajeroModel();
         CajeroView view = new CajeroView();
         CajeroController controller = new CajeroController(model, view);
+        List<String> mensajes = new ArrayList<String>();
+        mensajes.add("Iniciando sistema...");
+        System.out.println(mensajes.get(0));
         controller.iniciarSistema();
     }
 }
