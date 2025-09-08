@@ -111,16 +111,51 @@ public class Main {
         }
     }
 }*/
-// Método genérico simple
+/* Método genérico
 public class Main {
+    //La T va antes del metodo (void)  de retorno, dando entender que "imprimir es un metodo generico"
     public static <T> void imprimir(T dato) {
         System.out.println(dato);
     }
 
     public static void main(String[] args) {
-        imprimir("Hola Genéricos"); // imprime un texto
+        imprimir("Hola, esta es la Programacion Genérica"); // imprime un texto
         imprimir(100);              // imprime un número
         imprimir(3.14);             // imprime un decimal
     }
 }
+*/
+public class Main {
 
+    // Método genérico para sumar
+    public static <T extends Number> double sumar(T a, T b) {
+        return a.doubleValue() + b.doubleValue();
+    }
+
+   // Método genérico para restar
+    public static <T extends Number> double restar(T a, T b) {
+
+        return a.doubleValue() - b.doubleValue();
+    }
+
+    // Método genérico para multiplicar
+    public static <T extends Number> double multiplicar(T a, T b) {
+        return a.doubleValue() * b.doubleValue();
+    }
+
+    // Método genérico para dividir
+    public static <T extends Number> double dividir(T a, T b) {
+        if (b.doubleValue() == 0) {
+            throw new ArithmeticException("No se puede dividir entre cero");
+        }
+        return a.doubleValue() / b.doubleValue();
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Suma: " + sumar(5, 3));
+
+        System.out.println("Resta: " + restar(10.5, 2));
+        System.out.println("Multiplicación: " + multiplicar(4, 2.5));
+        System.out.println("División: " + dividir(20, 4));
+    }
+}
