@@ -5,9 +5,10 @@ public class Cuenta {
     private String pin;
     private double saldo;
     private String titular;
+
     public Cuenta(String numeroCuenta, String pin, double saldoInicial, String titular) {
         this.numeroCuenta = numeroCuenta;
-        this.pin = pin;
+        this.pin = pin != null ? pin : ""; // Evita null
         this.saldo = saldoInicial;
         this.titular = titular;
     }
@@ -16,72 +17,52 @@ public class Cuenta {
         return numeroCuenta;
     }
 
-    public String getPin() {
-        return pin;
+    public String getTitular() {
+        return titular;
     }
 
     public double getSaldo() {
         return saldo;
     }
 
-    public String getTitular() {
-        return titular;
+    // Validar PIN de forma segura
+    public boolean validarPin(String pinIngresado) {
+        if (pinIngresado == null) return false; // Nunca null
+        return pinIngresado.equals(this.pin);  // Llamamos equals sobre la variable segura
     }
 
-    //Reglas de negocio
-
-    public boolean validarPin(String pinIngresado){
-        return this.pin.equals(pinIngresado);
-    }
-    public boolean retirar(double cantidad){
-        if (cantidad > 0 && cantidad <= this.saldo){
+    // Retiro de saldo
+    public boolean retirar(double cantidad) {
+        if (cantidad > 0 && saldo >= cantidad) {
             saldo -= cantidad;
             return true;
         }
         return false;
     }
-    public void depositar(double cantidad){
-        if (cantidad > 0){
+
+    // Depósito de saldo
+    public void depositar(double cantidad) {
+        if (cantidad > 0) {
             saldo += cantidad;
         }
     }
 
-    //De tarea diseñar los comportamientos restantes transferir, cambiar nip
-
-    public boolean transferir(Cuenta cuentaDestino, double cantidad) {
-        if (cantidad <= 0) {
-            return false;
-        }
-
-        if (this.saldo < cantidad) {
-            return false;
-        }
-
-        if (cuentaDestino == null) {
-            return false;
-        }
-
-        if (this.retirar(cantidad)) {
-            cuentaDestino.depositar(cantidad);
+    // Transferencia a otra cuenta
+    public boolean transferir(Cuenta destino, double cantidad) {
+        if (destino != null && cantidad > 0 && saldo >= cantidad) {
+            saldo -= cantidad;
+            destino.depositar(cantidad);
             return true;
         }
-
         return false;
     }
+
+    // Cambiar PIN de forma segura
     public boolean cambiarNip(String pinActual, String nuevoPin) {
-        if (!validarPin(pinActual)) {
-            return false;
+        if (validarPin(pinActual) && nuevoPin != null && !nuevoPin.isEmpty()) {
+            this.pin = nuevoPin;
+            return true;
         }
-
-        if (nuevoPin == null || nuevoPin.trim().isEmpty()) {
-            return false;
-        }
-
-        if (!nuevoPin.matches("\\d{4}")) {
-            return false;
-        }
-
-        this.pin = nuevoPin;
-        return true;
+        return false;
     }
 }

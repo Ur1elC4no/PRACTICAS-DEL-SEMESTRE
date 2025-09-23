@@ -8,7 +8,7 @@ public class CajeroModel {
     private Cuenta cuentaActual;
 
     public CajeroModel() {
-        cuentas = new HashMap<String, Cuenta>();
+        cuentas = new HashMap<>();
         inicializarCuentas();
     }
 
@@ -19,6 +19,7 @@ public class CajeroModel {
         cuentas.put("89012", new Cuenta("89012", "4444", 1000, "Ana Rodríguez"));
     }
 
+    // Autenticación de usuario
     public boolean autenticacion(String numeroCuenta, String pin) {
         Cuenta cuenta = cuentas.get(numeroCuenta);
         if (cuenta != null && cuenta.validarPin(pin)) {
@@ -29,17 +30,26 @@ public class CajeroModel {
     }
 
     public Cuenta getCuentaActual() {
-        return this.cuentaActual;
+        return cuentaActual;
     }
 
+    // Consultar saldo
     public double consultarSaldo() {
-        return this.cuentaActual != null ? cuentaActual.getSaldo() : 0;
+        if (cuentaActual != null) {
+            return cuentaActual.getSaldo();
+        }
+        return 0;
     }
 
+    // Retiro de dinero
     public boolean realizarRetiro(double cantidad) {
-        return cuentaActual != null && cuentaActual.retirar(cantidad);
+        if (cuentaActual != null && cantidad > 0) {
+            return cuentaActual.retirar(cantidad);
+        }
+        return false;
     }
 
+    // Depósito de dinero
     public boolean realizarDeposito(double cantidad) {
         if (cuentaActual != null && cantidad > 0) {
             cuentaActual.depositar(cantidad);
@@ -48,22 +58,14 @@ public class CajeroModel {
         return false;
     }
 
+    // Verifica si una cuenta existe
     public boolean cuentaExistente(String numeroCuenta) {
         return cuentas.containsKey(numeroCuenta);
     }
 
-    //Definir el metodo para transferir
+    // Transferencia entre cuentas
     public boolean realizarTransferencia(String numeroCuentaDestino, double cantidad) {
-
-        if (cuentaActual == null) {
-            return false;
-        }
-
-        if (cantidad <= 0) {
-            return false;
-        }
-
-        if (numeroCuentaDestino.equals(cuentaActual.getNumeroCuenta())) {
+        if (cuentaActual == null || cantidad <= 0 || numeroCuentaDestino.equals(cuentaActual.getNumeroCuenta())) {
             return false;
         }
 
@@ -71,13 +73,15 @@ public class CajeroModel {
         if (cuentaDestino == null) {
             return false;
         }
+
         return cuentaActual.transferir(cuentaDestino, cantidad);
     }
+
+    // Cambiar PIN
     public boolean cambiarNip(String pinActual, String nuevoPin) {
         if (cuentaActual == null) {
             return false;
         }
-
         return cuentaActual.cambiarNip(pinActual, nuevoPin);
     }
 }
