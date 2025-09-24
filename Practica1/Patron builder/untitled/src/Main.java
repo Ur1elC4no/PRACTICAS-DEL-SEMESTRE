@@ -1,8 +1,9 @@
-/*
+
 // Clase Producto
 class Computadora {
     private String procesador;
     private int ram;
+
     private String tarjetaGrafica;
     private String almacenamiento;
 
@@ -74,24 +75,25 @@ public class Main {
         System.out.println(oficina);
     }
 }
-*/
+
 /*
  Clase que representa una Pizza con diferentes configuraciones.
  Se utiliza junto con el patrón Builder para construir objetos paso a paso.
  */
-class Pizza {
-    private final String tamaño;
-    private final String masa;
-    private final boolean extraQueso;
-    private final boolean pepperoni;
-    private final boolean champiñones;
+
+//class Pizza {
+  //  private final String tamaño;
+    //private final String masa;
+    //private final boolean extraQueso;
+    //private final boolean pepperoni;
+    //private final boolean champiñones;
 
     /*
      Constructor privado que recibe el Builder.
      Solo el Builder puede crear instancias de Pizza.
      Objeto Builder con la configuración de la Pizza.
      */
-    private Pizza(Builder builder) {
+ /*   private Pizza(Builder builder) {
         this.tamaño = builder.tamaño;
         this.masa = builder.masa;
         this.extraQueso = builder.extraQueso;
@@ -110,7 +112,7 @@ class Pizza {
     /*
      Clase estática Builder que permite construir la Pizza paso a paso.
      */
-    public static class Builder {
+ /*   public static class Builder {
         private String tamaño;
         private String masa;
         private boolean extraQueso;
@@ -122,7 +124,7 @@ class Pizza {
          El tamaño de la pizza (chica, mediana, grande).
          @return La instancia del Builder.
          */
-        public Builder setTamaño(String tamaño) {
+  /*      public Builder setTamaño(String tamaño) {
             this.tamaño = tamaño;
             return this;
         }
@@ -132,7 +134,7 @@ class Pizza {
          @param masa Tipo de masa (delgada, gruesa).
          @return La instancia del Builder.
          */
-        public Builder setMasa(String masa) {
+  /*      public Builder setMasa(String masa) {
             this.masa = masa;
             return this;
         }
@@ -142,7 +144,7 @@ class Pizza {
          @param extraQueso true si lleva extra queso, false en caso contrario.
          @return La instancia del Builder.
          */
-        public Builder setExtraQueso(boolean extraQueso) {
+   /*     public Builder setExtraQueso(boolean extraQueso) {
             this.extraQueso = extraQueso;
             return this;
         }
@@ -153,7 +155,7 @@ class Pizza {
           @param pepperoni true si lleva pepperoni, false en caso contrario.
           @return La instancia del Builder.
          */
-        public Builder setPepperoni(boolean pepperoni) {
+  /*      public Builder setPepperoni(boolean pepperoni) {
             this.pepperoni = pepperoni;
             return this;
         }
@@ -163,7 +165,7 @@ class Pizza {
          @param champiñones true si lleva champiñones, false en caso contrario.
          @return La instancia del Builder.
          */
-        public Builder setChampiñones(boolean champiñones) {
+  /*      public Builder setChampiñones(boolean champiñones) {
             this.champiñones = champiñones;
             return this;
         }
@@ -172,7 +174,7 @@ class Pizza {
          Construye y devuelve la Pizza con la configuración definidos
          @return Objeto Pizza creado.
          */
-        public Pizza build() {
+   /*     public Pizza build() {
             return new Pizza(this);
         }
     }
@@ -181,7 +183,7 @@ class Pizza {
 /*
  Clase principal para probar el patrón Builder con Pizza.
  */
-public class Main {
+/*public class Main {
     public static void main(String[] args) {
         // Pizza personalizada para un cliente
         Pizza pizza1 = new Pizza.Builder()
@@ -202,3 +204,4 @@ public class Main {
         System.out.println(pizza2);
     }
 }
+*/
