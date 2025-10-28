@@ -6,11 +6,11 @@ public class Cuenta {
     private double saldo;
     private String titular;
 
-    public Cuenta(String numeroCuenta, String pin, double saldoInicial, String titular) {
+    public Cuenta(String numeroCuenta, String pin, double saldo, String titular) {
         this.numeroCuenta = numeroCuenta;
-        this.pin = pin != null ? pin : ""; // Evita null
-        this.saldo = saldoInicial;
-        this.titular = titular;
+        this.pin = (pin != null) ? pin : "";
+        this.saldo = Math.max(0, saldo);
+        this.titular = (titular != null) ? titular : "";
     }
 
     public String getNumeroCuenta() {
@@ -25,39 +25,35 @@ public class Cuenta {
         return saldo;
     }
 
-    // Validar PIN de forma segura
     public boolean validarPin(String pinIngresado) {
-        if (pinIngresado == null) return false; // Nunca null
-        return pinIngresado.equals(this.pin);  // Llamamos equals sobre la variable segura
+        return pinIngresado != null && pinIngresado.equals(this.pin);
     }
 
-    // Retiro de saldo
     public boolean retirar(double cantidad) {
-        if (cantidad > 0 && saldo >= cantidad) {
-            saldo -= cantidad;
+        if (cantidad > 0 && this.saldo >= cantidad) {
+            this.saldo -= cantidad;
             return true;
         }
         return false;
     }
 
-    // Depósito de saldo
     public void depositar(double cantidad) {
         if (cantidad > 0) {
-            saldo += cantidad;
+            this.saldo += cantidad;
         }
     }
 
-    // Transferencia a otra cuenta
     public boolean transferir(Cuenta destino, double cantidad) {
-        if (destino != null && cantidad > 0 && saldo >= cantidad) {
-            saldo -= cantidad;
-            destino.depositar(cantidad);
-            return true;
+        if (destino == null || cantidad <= 0) {
+            return false;
         }
-        return false;
+        if (!retirar(cantidad)) {
+            return false;
+        }
+        destino.depositar(cantidad);
+        return true;
     }
 
-    // Cambiar PIN de forma segura
     public boolean cambiarNip(String pinActual, String nuevoPin) {
         if (validarPin(pinActual) && nuevoPin != null && !nuevoPin.isEmpty()) {
             this.pin = nuevoPin;
